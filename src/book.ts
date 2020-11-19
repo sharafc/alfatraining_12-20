@@ -1,8 +1,8 @@
 export default class Book {
    constructor(
       private title: string,
-      public pageCount: number,
-      public pageCurrent: number
+      public readonly pageCount: number,
+      public readonly pageCurrent: number
    ) {}
 
    unreadPages(): number {
