@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, SyntheticEvent } from "react";
 
 interface Props {
     readonly startValue?: number;
@@ -16,26 +16,62 @@ export default class ClassCounter extends React.Component<Props, State> {
      */
     private intervalID: number | undefined;
 
-    constructor(props: Props) {        
+    constructor(props: Props) {
         super(props);
         this.state = { counter: this.props.startValue || 0 };
     }
 
     componentDidMount(): void {
-        this.intervalID = window.setInterval(() => {
-            this.setState(currentState => ({ counter: currentState.counter + 1 }));
-        }, 1000);
+        // function bind to bind our context to the newly created method
+        this.intervalID = window.setInterval(this.incrementCounter.bind(this), 2000);
     }
 
     componentWillUnmount(): void {
         window.clearInterval(this.intervalID);
     }
 
+    /**
+     * _ -> Optional parameter to prevent eslinter from raising an unused error
+     * @param _prevPros
+     * @param prevState
+     */
+    componentDidUpdate(_prevPros: Props, prevState: State): void {
+        if (prevState.counter !== this.state.counter) {
+            window.document.title = "Counter: " + this.state.counter;
+        }
+    }
+
+    private incrementCounter(): void {
+        this.setState((currentState) => ({
+            counter: currentState.counter + 1,
+        }));
+    }
+
+    /**
+     * if we want to pass through custom parameters, wie have to declare an arrow function which can do anything and call the defined function
+     * @param e
+     * @param foo
+     */
+    private onClickAddCounter = (e: SyntheticEvent, foo: string) => {
+        e.preventDefault();
+        console.log(foo);
+        this.incrementCounter();
+    };
+
     render(): ReactElement {
         return (
             <>
                 <p>Counter Value: {this.state.counter}</p>
+                <button
+                    className="ui button icon"
+                    onClick={(e) => {
+                        // complete function body where we can do whatever we want
+                        this.onClickAddCounter(e, "bar");
+                    }}
+                >
+                    <i className="icon plus" />
+                </button>
             </>
-        )
+        );
     }
 }

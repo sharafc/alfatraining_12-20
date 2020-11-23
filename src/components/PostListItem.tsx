@@ -8,11 +8,12 @@ import Post from "../types/Post";
  */
 interface Props {
     readonly post: Post;
+    clickedPostItem: (post: Post) => void;
 }
 
 export default function PostListItem(props: Props): ReactElement {    
     return (
-        <div className="card">
+        <div className="card" onClick={() => props.clickedPostItem(props.post)}>
             <div className="content">
                 <div className="header">{props.post.title}</div>
                 <div className="description">{props.post.body}</div>
