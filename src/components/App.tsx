@@ -1,14 +1,19 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import BookList from "./BookList";
 import PostList from "./PostList";
 import ClassCounter from "./ClassCounter";
 import Post from "../types/Post";
+import PostDetails from "./PostDetails";
 
 export default function App(): ReactElement {
 
-    const clickedPostItem = (post: Post): void => {
-        console.log("Post: ", post);
-    }
+    // object, function
+    const [post, setPost] = useState<Post>();
+
+    const clickedPostItem = (currentPost: Post): void => {
+        console.log("Post: ", currentPost);
+        setPost(post ? undefined : currentPost);
+    } 
 
     return (
         <div className="ui container">
@@ -16,7 +21,14 @@ export default function App(): ReactElement {
             <BookList />
 
             <h2>My posts:</h2>
-            <PostList clickedPostItem={clickedPostItem} />
+            {
+                post ? (
+                  <PostDetails post={post} clickedPostItem={clickedPostItem} />
+                ) : <PostList clickedPostItem={clickedPostItem} />
+            }
+
+            {JSON.stringify(post || {})}
+            
             {/**
              * Props in quotes always string, in expression of returned type
              */}
@@ -24,3 +36,4 @@ export default function App(): ReactElement {
         </div>
     );
 }
+

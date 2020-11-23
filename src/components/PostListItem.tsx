@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function PostListItem(props: Props): ReactElement {    
-    return (
+    return (        
         <div className="card" onClick={() => props.clickedPostItem(props.post)}>
             <div className="content">
                 <div className="header">{props.post.title}</div>

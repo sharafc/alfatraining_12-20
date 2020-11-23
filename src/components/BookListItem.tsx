@@ -8,7 +8,7 @@ interface Props {
     readonly thumbnail: Thumbnail;
 }
 
-export default function PostListItem(props: Props): ReactElement {
+export default function BookListItem(props: Props): ReactElement {
     return (
         <div className="item">
             <img
