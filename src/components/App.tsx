@@ -1,39 +1,50 @@
 import React, { ReactElement, useState } from "react";
 import BookList from "./BookList";
-import PostList from "./PostList";
-import ClassCounter from "./ClassCounter";
-import Post from "../types/Post";
-import PostDetails from "./PostDetails";
+import BookDetails from "./BookDetails";
+import Book from "../types/Book";
 
 export default function App(): ReactElement {
+    const [viewState, setViewState] = useState<string>("list");
+    const [book, setBook] = useState<Book>();
 
-    // object, function
-    const [post, setPost] = useState<Post>();
+    const clickedBook = (currentBook: Book): void => {
+        console.log(currentBook);
+        setBook(book ? undefined : currentBook);
+        setViewState("detail");
+    };
 
-    const clickedPostItem = (currentPost: Post): void => {
-        console.log("Post: ", currentPost);
-        setPost(post ? undefined : currentPost);
-    } 
+    /*
+    const getRatings = (): number[] => {
+        const ratingArray = [];
+        for(let i = 0; i < (book.rating || 0); i++) {
+            ratingArray.push(i);
+        }
+        return ratingArray;
+    }
+    */
+
+    const showList = (): void => {
+        setBook(undefined);
+        setViewState("list");
+    }
+
+    const selectBookView = () => {
+        if (viewState === "list") {
+            console.log(viewState);
+            return <BookList clickedBook={clickedBook} />;
+        }
+        if (viewState === "detail" && book) {
+            console.log(viewState);
+            return <BookDetails selectedBook={book} showList={showList} />;
+        }
+    };
 
     return (
         <div className="ui container">
-            <h1>My book list:</h1>
-            <BookList />
-
-            <h2>My posts:</h2>
-            {
-                post ? (
-                  <PostDetails post={post} clickedPostItem={clickedPostItem} />
-                ) : <PostList clickedPostItem={clickedPostItem} />
-            }
-
-            {JSON.stringify(post || {})}
-            
             {/**
-             * Props in quotes always string, in expression of returned type
+             * defer logic of choosing correct template to its own function
              */}
-            <ClassCounter startValue={42} />
+            {selectBookView()}
         </div>
     );
 }
-

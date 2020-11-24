@@ -6,11 +6,12 @@ import AuthorList from "./AuthorList";
 interface Props {
     readonly book: Book;
     readonly thumbnail: Thumbnail;
+    clickedBook: (book: Book) => void;
 }
 
 export default function BookListItem(props: Props): ReactElement {
     return (
-        <div className="item">
+        <div className="item" onClick={() => props.clickedBook(props.book) }>
             <img
                 className="ui tiny image"
                 alt={props.thumbnail.title ? props.thumbnail.title : ""}
