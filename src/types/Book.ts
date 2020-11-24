@@ -7,6 +7,6 @@ export default interface Book {
   published: Date;
   subtitle?: string;
   rating?: number;
-  thumbnails: Thumbnail[];
+  thumbnails?: Thumbnail[];
   description?: string;
 }

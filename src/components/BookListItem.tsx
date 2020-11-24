@@ -1,22 +1,20 @@
 import React, { ReactElement } from "react";
 import Book from "../types/Book";
-import Thumbnail from "../types/Thumbnail";
+import ImageRenderer from "./renderer/ImageRenderer";
 import AuthorList from "./AuthorList";
 
 interface Props {
     readonly book: Book;
-    readonly thumbnail: Thumbnail;
     clickedBook: (book: Book) => void;
 }
 
 export default function BookListItem(props: Props): ReactElement {
     return (
-        <div className="item" onClick={() => props.clickedBook(props.book) }>
-            <img
-                className="ui tiny image"
-                alt={props.thumbnail.title ? props.thumbnail.title : ""}
-                src={props.thumbnail.url}
-            />
+        <div className="item" onClick={() => props.clickedBook(props.book)}>
+            {
+                props.book.thumbnails ? <ImageRenderer thumbnails={props.book.thumbnails} /> : null
+            }
+            
             <div className="content">
                 <div className="header">{props.book.title}</div>
                 <div className="description">{props.book.description}</div>

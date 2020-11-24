@@ -14,7 +14,6 @@ export default function PostList(props: Props): ReactElement {
                 <BookListItem
                     book={book}
                     key={book.isbn}
-                    thumbnail={book.thumbnails[0]}
                     clickedBook={props.clickedBook}
                 />
             ))}

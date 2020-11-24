@@ -8,20 +8,9 @@ export default function App(): ReactElement {
     const [book, setBook] = useState<Book>();
 
     const clickedBook = (currentBook: Book): void => {
-        console.log(currentBook);
         setBook(book ? undefined : currentBook);
         setViewState("detail");
-    };
-
-    /*
-    const getRatings = (): number[] => {
-        const ratingArray = [];
-        for(let i = 0; i < (book.rating || 0); i++) {
-            ratingArray.push(i);
-        }
-        return ratingArray;
-    }
-    */
+    };  
 
     const showList = (): void => {
         setBook(undefined);
@@ -30,11 +19,9 @@ export default function App(): ReactElement {
 
     const selectBookView = () => {
         if (viewState === "list") {
-            console.log(viewState);
             return <BookList clickedBook={clickedBook} />;
         }
         if (viewState === "detail" && book) {
-            console.log(viewState);
             return <BookDetails selectedBook={book} showList={showList} />;
         }
     };
