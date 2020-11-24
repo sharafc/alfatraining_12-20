@@ -1,37 +1,36 @@
 import React, { ReactElement, useState } from "react";
-import BookList from "./BookList";
-import BookDetails from "./BookDetails";
-import Book from "../types/Book";
+import ClassCounter from "./ClassCounter";
+import PostList from "./PostList";
+import PostDetails from "./PostDetails";
+import Post from "../types/Post";
+import FunctionalCounter from "./FunctionalCounter";
+
 
 export default function App(): ReactElement {
-    const [viewState, setViewState] = useState<string>("list");
-    const [book, setBook] = useState<Book>();
-
-    const clickedBook = (currentBook: Book): void => {
-        setBook(book ? undefined : currentBook);
-        setViewState("detail");
-    };  
-
-    const showList = (): void => {
-        setBook(undefined);
-        setViewState("list");
-    }
-
-    const selectBookView = () => {
-        if (viewState === "list") {
-            return <BookList clickedBook={clickedBook} />;
-        }
-        if (viewState === "detail" && book) {
-            return <BookDetails selectedBook={book} showList={showList} />;
-        }
+    // object, function
+    const [post, setPost] = useState<Post>();
+    const clickedPostItem = (currentPost: Post): void => {
+        console.log("Post: ", currentPost);
+        setPost(post ? undefined : currentPost);
     };
 
     return (
         <div className="ui container">
+            <h2>My posts:</h2>
+            {post ? (
+                <PostDetails post={post} clickedPostItem={clickedPostItem} />
+            ) : (
+                <PostList clickedPostItem={clickedPostItem} />
+            )}
+
+            {/* JSON.stringify(post || {}) */}
+
             {/**
-             * defer logic of choosing correct template to its own function
-             */}
-            {selectBookView()}
+             * Props in quotes always string, in expression of returned type             
+            <ClassCounter startValue={42} />
+
+            <FunctionalCounter />
+            */}
         </div>
     );
 }
