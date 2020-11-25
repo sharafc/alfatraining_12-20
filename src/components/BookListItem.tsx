@@ -11,16 +11,16 @@ interface Props {
 export default function BookListItem(props: Props): ReactElement {
     return (
         <div className="item" onClick={() => props.clickedBook(props.book)}>
-            {
-                props.book.thumbnails ? <ImageRenderer thumbnails={props.book.thumbnails} /> : null
-            }
-            
+            {props.book.thumbnails ? (
+                <ImageRenderer thumbnails={props.book.thumbnails} singleView={true} />
+            ) : null}
+
             <div className="content">
                 <div className="header">{props.book.title}</div>
-                <div className="description">{props.book.description}</div>
+                <div className="description">{props.book.subtitle}</div>
                 <div className="metadata">
                     {props.book.authors.map((author, index) => (
-                        <AuthorList author={author} key={index} />
+                        <AuthorList author={author} key={index} view="list" />
                     ))}
                     <br />
                     {props.book.isbn}

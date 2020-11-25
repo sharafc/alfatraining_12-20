@@ -1,37 +1,39 @@
 import React, { ReactElement, useState } from "react";
-import ClassCounter from "./ClassCounter";
-import PostList from "./PostList";
-import PostDetails from "./PostDetails";
-import Post from "../types/Post";
-import FunctionalCounter from "./FunctionalCounter";
+import BookList from "./BookList";
+import BookDetails from "./BookDetails";
+import Book from "../types/Book";
+
+type ViewState = "list" | "detail";
 
 export default function App(): ReactElement {
-    // object, function
-    const [post, setPost] = useState<Post>();
-    const clickedPostItem = (currentPost: Post): void => {
-        console.log("Post: ", currentPost);
-        setPost(post ? undefined : currentPost);
+    const [viewState, setViewState] = useState<ViewState>("list");
+    const [book, setBook] = useState<Book>();
+
+    const clickedBook = (currentBook: Book): void => {
+        setBook(book ? undefined : currentBook);
+        setViewState("detail");
     };
 
-    const [showCounter, setShowCounter] = useState(true);
+    const showList = (): void => {
+        setBook(undefined);
+        setViewState("list");
+    }
+
+    const selectBookView = () => {
+        if (viewState === "list") {
+            return <BookList clickedBook={clickedBook} showList={showList} />;
+        }
+        if (viewState === "detail" && book) {
+            return <BookDetails selectedBook={book.isbn} showList={showList} />;
+        }
+    };
 
     return (
         <div className="ui container">
-            <h2>My posts:</h2>
-            {showCounter && <FunctionalCounter />}
-
-            {post ? (
-                <PostDetails post={post} clickedPostItem={clickedPostItem} />
-            ) : (
-                <PostList clickedPostItem={clickedPostItem} />
-            )}
-
-            {/* JSON.stringify(post || {}) */}
-
             {/**
-             * Props in quotes always string, in expression of returned type
-             * <ClassCounter startValue={42} />
+             * defer logic of choosing correct template to its own function
              */}
+            {selectBookView()}
         </div>
     );
 }
