@@ -5,7 +5,6 @@ import PostDetails from "./PostDetails";
 import Post from "../types/Post";
 import FunctionalCounter from "./FunctionalCounter";
 
-
 export default function App(): ReactElement {
     // object, function
     const [post, setPost] = useState<Post>();
@@ -14,9 +13,13 @@ export default function App(): ReactElement {
         setPost(post ? undefined : currentPost);
     };
 
+    const [showCounter, setShowCounter] = useState(true);
+
     return (
         <div className="ui container">
             <h2>My posts:</h2>
+            {showCounter && <FunctionalCounter />}
+
             {post ? (
                 <PostDetails post={post} clickedPostItem={clickedPostItem} />
             ) : (
@@ -26,11 +29,9 @@ export default function App(): ReactElement {
             {/* JSON.stringify(post || {}) */}
 
             {/**
-             * Props in quotes always string, in expression of returned type             
-            <ClassCounter startValue={42} />
-
-            <FunctionalCounter />
-            */}
+             * Props in quotes always string, in expression of returned type
+             * <ClassCounter startValue={42} />
+             */}
         </div>
     );
 }

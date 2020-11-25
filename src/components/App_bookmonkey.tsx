@@ -3,8 +3,10 @@ import BookList from "./BookList";
 import BookDetails from "./BookDetails";
 import Book from "../types/Book";
 
+type ViewState = "list" | "detail";
+
 export default function App(): ReactElement {
-    const [viewState, setViewState] = useState<string>("list");
+    const [viewState, setViewState] = useState<ViewState>("list");
     const [book, setBook] = useState<Book>();
 
     const clickedBook = (currentBook: Book): void => {

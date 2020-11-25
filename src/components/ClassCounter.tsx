@@ -15,10 +15,12 @@ export default class ClassCounter extends React.Component<Props, State> {
      * First tells TypeScript "Yes we do set it, no worries", Second that it is allowed to be undefined
      */
     private intervalID: number | undefined;
+    private defaultTitle: string;
 
     constructor(props: Props) {
         super(props);
         this.state = { counter: this.props.startValue || 0 };
+        this.defaultTitle = window.document.title;
     }
 
     componentDidMount(): void {
@@ -28,6 +30,7 @@ export default class ClassCounter extends React.Component<Props, State> {
 
     componentWillUnmount(): void {
         window.clearInterval(this.intervalID);
+        window.document.title = this.defaultTitle;
     }
 
     /**
