@@ -1,11 +1,11 @@
 import React, { ReactElement, useState } from "react";
-import ClassCounter from "./ClassCounter";
-import PostList from "./PostList";
-import PostDetails from "./PostDetails";
-import Post from "../types/Post";
-import FunctionalCounter from "./FunctionalCounter";
+import ClassCounter from "../ClassCounter";
+import PostList from "../PostList";
+import PostDetails from "../PostDetails";
+import Post from "../../types/Post";
+import FunctionalCounter from "../FunctionalCounter";
 
-export default function App(): ReactElement {
+export default function Exercises(): ReactElement {
     // object, function
     const [post, setPost] = useState<Post>();
     const clickedPostItem = (currentPost: Post): void => {

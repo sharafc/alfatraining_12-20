@@ -1,39 +1,27 @@
-import React, { ReactElement, useState } from "react";
-import BookList from "./BookList";
-import BookDetails from "./BookDetails";
-import Book from "../types/Book";
-
-type ViewState = "list" | "detail";
+import React, { ReactElement } from "react";
+import { Route, BrowserRouter as Router, Switch, Link } from "react-router-dom";
+import BookMonkey from "./pages/BookMonkey";
+import Exercises from "./pages/Exercises";
 
 export default function App(): ReactElement {
-    const [viewState, setViewState] = useState<ViewState>("list");
-    const [book, setBook] = useState<Book>();
-
-    const clickedBook = (currentBook: Book): void => {
-        setBook(book ? undefined : currentBook);
-        setViewState("detail");
-    };
-
-    const showList = (): void => {
-        setBook(undefined);
-        setViewState("list");
-    }
-
-    const selectBookView = () => {
-        if (viewState === "list") {
-            return <BookList clickedBook={clickedBook} showList={showList} />;
-        }
-        if (viewState === "detail" && book) {
-            return <BookDetails selectedBook={book.isbn} showList={showList} />;
-        }
-    };
-
     return (
-        <div className="ui container">
-            {/**
-             * defer logic of choosing correct template to its own function
-             */}
-            {selectBookView()}
-        </div>
+        <Router>
+            <header className="ui borderless main menu">
+                <div className="ui text container">
+                    <h1 className="header item">Hello Adventurer</h1>
+                    <Link to="/exercise" className="item">
+                        Exercises
+                    </Link>
+                    <Link to="/bookmonkey" className="item">
+                        Book Monkey
+                    </Link>
+                </div>
+            </header>
+
+            <Switch>
+                <Route path="/exercise" component={Exercises} />
+                <Route path="/bookmonkey" component={BookMonkey} />
+            </Switch>
+        </Router>
     );
 }

@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
-import Book from "../types/Book";
-import ImageRenderer from "./renderer/ImageRenderer";
-import AuthorList from "./AuthorList";
+import Book from "../../types/Book";
+import ImageRenderer from "../renderer/ImageRenderer";
+import AuthorList from "../AuthorList";
 
 interface Props {
     readonly book: Book;

@@ -1,10 +1,10 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import axios from 'axios';
-import Book from '../types/Book';
-import LoadingSpinner from './assets/LoadingSpinner';
-import StarIcon from './assets/StarIcon';
-import AuthorList from './AuthorList';
-import ImageRenderer from './renderer/ImageRenderer';
+import Book from '../../types/Book';
+import LoadingSpinner from '../assets/LoadingSpinner';
+import StarIcon from '../assets/StarIcon';
+import AuthorList from '../AuthorList';
+import ImageRenderer from '../renderer/ImageRenderer';
 
 interface Props {
     selectedBook: string;

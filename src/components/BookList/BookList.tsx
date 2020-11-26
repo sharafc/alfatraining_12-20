@@ -1,8 +1,8 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import axios from "axios";
-import BookListItem from "./BookListItem";
-import Book from "../types/Book";
-import LoadingSpinner from "./assets/LoadingSpinner";
+import BookListItem from "../BookListItem";
+import Book from "../../types/Book";
+import LoadingSpinner from "../assets/LoadingSpinner";
 
 interface Props {
     clickedBook: (book: Book) => void;
