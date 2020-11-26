@@ -1,35 +1,16 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
+import useCounter from "../customhooks/useCounter";
+import useDocumentTitle from "../customhooks/useDocumentTitle";
+import useInterval from "../customhooks/useInterval";
 
 interface Props {
     startValue?: number;
 }
 
 export default function FunctionalCounter(props: Props): ReactElement {
-    const [counter, setCounter] = useState<number>(props.startValue || 0);
-
-    const incrementCounter = () => {
-        setCounter((counter_) => counter_ + 1);
-    };
-
-    useEffect(() => {
-        console.log("Effect function");
-        const intervalId = window.setInterval(() => {
-            setCounter((counter_) => counter_ + 1);
-        }, 1000);
-        return () => {
-            console.log("Cleanup");
-            window.clearInterval(intervalId);
-        };
-    }, []);
-
-    useEffect(() => {
-        const defaultTitle = window.document.title;
-        window.document.title = "Counter:" + counter;
-        return () => {
-            // Cleanup executed before executing the effect
-            window.document.title = defaultTitle;
-        }
-    }, [counter])
+    const { counter, incrementCounter } = useCounter(props.startValue);
+    useInterval(incrementCounter);
+    useDocumentTitle("Counter:" + counter);
 
     return (
         <>
