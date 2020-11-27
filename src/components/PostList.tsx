@@ -1,26 +1,16 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import axios from "axios";
+import React, { ReactElement } from "react";
 import PostListItem from "./PostListItem";
 import Post from "../types/Post";
+import LoadingSpinner from "./assets/LoadingSpinner";
+import { usePostApi } from "../shared/PostApi";
 
-interface Props {
-    clickedPostItem: (post: Post) => void;
-}
+export default function PostList(): ReactElement {
 
-export default function PostList(props: Props): ReactElement {
-    const [posts, setPosts] = useState<Post[]>([]);
+    const posts = usePostApi<Post[]>("GET", "posts");
 
-    /**
-     * empty array doesn't trigger, only one call.
-     * -> same as componentDidMount() on ClassComponent
-     */
-    useEffect(() => {
-        axios
-            .get("http://jsonplaceholder.typicode.com/posts/")
-            .then((response) => {
-                setPosts(response.data);
-            });
-    }, []);
+    if (!posts) {
+        return <LoadingSpinner />
+    }
 
     return (
         <div className="ui cards">
@@ -28,11 +18,10 @@ export default function PostList(props: Props): ReactElement {
                 /**
                  * key attribute needed for iteration over virtualDOM of React
                  */
-                posts.map((post) => (
+                posts.map(post => (
                     <PostListItem
                         post={post}
                         key={post.id}
-                        clickedPostItem={props.clickedPostItem}
                     />
                 ))
             }

@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { Link } from 'react-router-dom';
 import Post from "../types/Post";
 
 /**
@@ -8,19 +9,19 @@ import Post from "../types/Post";
  */
 interface Props {
     readonly post: Post;
-    clickedPostItem: (post: Post) => void;
 }
 
 export default function PostListItem(props: Props): ReactElement {    
-    return (        
-        <div className="card" onClick={() => props.clickedPostItem(props.post)}>
+    const post = props.post;
+    return (
+        <Link to={`/post/${post.id}`} className="card">
             <div className="content">
-                <div className="header">{props.post.title}</div>
-                <div className="description">{props.post.body}</div>
+                <div className="header">{post.title}</div>
+                <div className="description">{post.body}</div>
             </div>
             <div className="extra content">
-                User Id: {props.post.userId} Post Id: {props.post.id}
+                User Id: {post.userId} Post Id: {post.id}
             </div>
-        </div>
+        </Link>
     );
 }

@@ -1,37 +1,42 @@
 import React, { ReactElement, useState } from "react";
+import { Redirect, Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import ClassCounter from "../ClassCounter";
 import PostList from "../PostList";
 import PostDetails from "../PostDetails";
-import Post from "../../types/Post";
 import FunctionalCounter from "../FunctionalCounter";
+import Clock from "../Clock/Clock";
+import Layout from "../Layout";
 
 export default function Exercises(): ReactElement {
-    // object, function
-    const [post, setPost] = useState<Post>();
-    const clickedPostItem = (currentPost: Post): void => {
-        console.log("Post: ", currentPost);
-        setPost(post ? undefined : currentPost);
-    };
-
     const [showCounter, setShowCounter] = useState(true);
 
     return (
         <div className="ui container">
-            <h2>My posts:</h2>
-            {showCounter && <FunctionalCounter />}
-
-            {post ? (
-                <PostDetails post={post} clickedPostItem={clickedPostItem} />
-            ) : (
-                <PostList clickedPostItem={clickedPostItem} />
-            )}
-
-            {/* JSON.stringify(post || {}) */}
-
-            {/**
-             * Props in quotes always string, in expression of returned type
-             * <ClassCounter startValue={42} />
-             */}
+            <Router>
+                <Layout>
+                    <Switch>
+                        <Route path="/posts/:postId">
+                            <PostDetails />
+                        </Route>
+                        <Route path="/posts">
+                            <PostList />
+                        </Route>
+                        <Route path="/clock">
+                            <Clock />
+                        </Route>
+                        <Route path="/counter/functional">{showCounter && <FunctionalCounter startValue={4} />}</Route>
+                        <Route path="/counter/class">
+                            <ClassCounter startValue={4} />
+                        </Route>
+                        <Route path="/home">
+                            <p>Welcome on Home</p>
+                        </Route>
+                        <Route path="/">
+                            <Redirect to="/home" />
+                        </Route>
+                    </Switch>
+                </Layout>
+            </Router>
         </div>
     );
 }

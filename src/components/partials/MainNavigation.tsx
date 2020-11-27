@@ -1,15 +1,15 @@
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export default function MainNavigation(): ReactElement {
     return (
         <React.Fragment>
-            <Link to="/exercise" className="item">
+            <NavLink to="/exercise" className="item" activeClassName="active">
                 Exercises
-            </Link>
-            <Link to="/bookmonkey" className="item">
+            </NavLink>
+            <NavLink to="/bookmonkey" className="item" activeClassName="active">
                 Book Monkey
-            </Link>
+            </NavLink>
         </React.Fragment>
-    )
+    );
 }
