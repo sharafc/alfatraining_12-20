@@ -5,7 +5,6 @@ import LoadingSpinner from "./assets/LoadingSpinner";
 import { usePostApi } from "../shared/PostApi";
 
 export default function PostList(): ReactElement {
-
     const posts = usePostApi<Post[]>("GET", "posts");
 
     if (!posts) {

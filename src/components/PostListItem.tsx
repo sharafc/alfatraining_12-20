@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import Post from "../types/Post";
 
 /**
@@ -13,8 +13,10 @@ interface Props {
 
 export default function PostListItem(props: Props): ReactElement {    
     const post = props.post;
+    const { url } = useRouteMatch();
+    
     return (
-        <Link to={`/post/${post.id}`} className="card">
+        <Link to={`${url}/${post.id}`} className="card">
             <div className="content">
                 <div className="header">{post.title}</div>
                 <div className="description">{post.body}</div>

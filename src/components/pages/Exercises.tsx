@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { Redirect, Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { Redirect, Route, BrowserRouter as Router, Switch, useRouteMatch, useParams } from "react-router-dom";
 import ClassCounter from "../ClassCounter";
 import PostList from "../PostList";
 import PostDetails from "../PostDetails";
@@ -10,15 +10,17 @@ import Layout from "../Layout";
 export default function Exercises(): ReactElement {
     const [showCounter, setShowCounter] = useState(true);
 
+    const { url } = useRouteMatch();
+
     return (
         <div className="ui container">
             <Router>
                 <Layout>
                     <Switch>
-                        <Route path="/posts/:postId">
+                        <Route path={`${url}/posts/:postId`}>
                             <PostDetails />
                         </Route>
-                        <Route path="/posts">
+                        <Route path={`${url}/posts`}>
                             <PostList />
                         </Route>
                         <Route path="/clock">

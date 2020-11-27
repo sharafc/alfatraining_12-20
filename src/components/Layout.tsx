@@ -10,7 +10,7 @@ export default function Layout(props: Props): ReactElement {
         <>
             <div className="ui menu">
                 {/* activeClassName ist css Klasse fuer aktive Route, `active` ist default */}
-                <NavLink to="/posts" exact className="item" activeClassName="active">
+                <NavLink to="/exercise/posts" exact className="item" activeClassName="active">
                     Posts
                 </NavLink>
                 <NavLink to="/clock" className="item">
