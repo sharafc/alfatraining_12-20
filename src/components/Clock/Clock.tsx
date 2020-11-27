@@ -1,7 +1,7 @@
 import React from "react";
 
 import css from "./Clock.module.css";
-import useTime, { Times } from "../../customhooks/useTime";
+import useTime, { Times } from "../../hooks/useTime";
 
 interface Props {
     maxSize?: number;

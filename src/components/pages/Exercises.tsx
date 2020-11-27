@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { Redirect, Route, BrowserRouter as Router, Switch, useRouteMatch, useParams } from "react-router-dom";
+import { Redirect, Route, BrowserRouter as Router, Switch, useRouteMatch } from "react-router-dom";
 import ClassCounter from "../ClassCounter";
 import PostList from "../PostList";
 import PostDetails from "../PostDetails";

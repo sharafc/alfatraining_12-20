@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
-import useCounter from "../customhooks/useCounter";
-import useDocumentTitle from "../customhooks/useDocumentTitle";
-import useInterval from "../customhooks/useInterval";
+import useCounter from "../hooks/useCounter";
+import useDocumentTitle from "../hooks/useDocumentTitle";
+import useInterval from "../hooks/useInterval";
 
 interface Props {
     startValue?: number;
