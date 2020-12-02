@@ -13,7 +13,10 @@ export default function Layout(props: Props): ReactElement {
                 <NavLink to="/exercise/posts" exact className="item" activeClassName="active">
                     Posts
                 </NavLink>
-                <NavLink to="/clock" className="item">
+                <NavLink to="/exercise/form" className="item" activeClassName="active">
+                    Forms
+                </NavLink>
+                <NavLink to="/exercise/clock" className="item">
                     Clock
                 </NavLink>
                 <NavLink to="/counter/functional" className="item">

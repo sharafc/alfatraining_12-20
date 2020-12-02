@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import useCounter from "../hooks/useCounter";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import useInterval from "../hooks/useInterval";

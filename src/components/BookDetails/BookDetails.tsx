@@ -1,10 +1,10 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import axios from 'axios';
 import Book from '../../types/Book';
 import LoadingSpinner from '../assets/LoadingSpinner';
 import StarIcon from '../assets/StarIcon';
 import AuthorList from '../AuthorList';
 import ImageRenderer from '../renderer/ImageRenderer';
+import bookApi from '../../shared/BookApi';
 
 interface Props {
     selectedBook: string;
@@ -12,7 +12,6 @@ interface Props {
 }
 
 export default function BookDetails(props: Props): ReactElement {
-    const BOOK_URL = "https://api3.angular-buch.com/books/" + props.selectedBook;
     const [book, setBook] = useState<Book>();
 
     /**
@@ -32,19 +31,12 @@ export default function BookDetails(props: Props): ReactElement {
      * Delete current book from store
      */
     const deleteBook = (): void => {
-        console.log('deleting');
-        axios.delete(BOOK_URL).then((response) => {
-            if (response.data === "OK") {
-                props.showList();
-            }
-        }); 
+        bookApi("DELETE", "books/" + props.selectedBook, props.showList);
     }
 
     useEffect(() => {
-        axios.get(BOOK_URL).then((response) => {
-            setBook(response.data);
-        });
-    }, [props.selectedBook, BOOK_URL]);
+        bookApi("GET", "books/" + props.selectedBook, setBook);
+    }, [props.selectedBook]);
 
     /**
      * Guardian: Return if book is not available

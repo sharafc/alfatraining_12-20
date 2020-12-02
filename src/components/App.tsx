@@ -6,6 +6,7 @@ import Footer from "./partials/Footer";
 import Header from "./partials/Header";
 
 export default function App(): ReactElement {
+    
     return (
         <Router>
             <div className="container">

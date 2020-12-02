@@ -3,6 +3,7 @@ import axios from "axios";
 import BookListItem from "../BookListItem";
 import Book from "../../types/Book";
 import LoadingSpinner from "../assets/LoadingSpinner";
+import bookApi from "../../shared/BookApi";
 
 interface Props {
     clickedBook: (book: Book) => void;
@@ -14,9 +15,7 @@ export default function PostList(props: Props): ReactElement {
     const [books, setBooks] = useState<Book[]>();
 
     const resetBookstore = (): void => {
-        axios.delete(BASE_URL).then(() => {
-            window.location.reload();
-        });
+        bookApi("DELETE", "books", window.location.reload);
     };
 
     useEffect(() => {
@@ -33,7 +32,9 @@ export default function PostList(props: Props): ReactElement {
             {books.length === 0 ? (
                 <div>
                     <p>No books available</p>
-                    <button className="ui red button" onClick={resetBookstore}>Reset Bookstore</button>
+                    <button className="ui red button" onClick={resetBookstore}>
+                        Reset Bookstore
+                    </button>
                 </div>
             ) : (
                 books.map((book) => (

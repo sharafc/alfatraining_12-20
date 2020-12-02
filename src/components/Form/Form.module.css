@@ -1,0 +1,24 @@
+.form input:invalid {
+    background-color: #ffdddd !important;
+}
+
+.form:invalid {
+    border: 5px solid #ffdddd;
+}
+
+.form input:valid {
+    background-color: #ddffdd !important;
+}
+
+.form:valid {
+    border: 5px solid #ddffdd;
+}
+
+.form input:required {
+    border-color: #800000;
+    border-width: 3px;
+}
+
+.form input:required:invalid {
+    border-color: #c00000;
+}

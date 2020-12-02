@@ -4,8 +4,9 @@ import ClassCounter from "../ClassCounter";
 import PostList from "../PostList";
 import PostDetails from "../PostDetails";
 import FunctionalCounter from "../FunctionalCounter";
-import Clock from "../Clock/Clock";
+import Clock from "../Clock";
 import Layout from "../Layout";
+import Form from "../Form";
 
 export default function Exercises(): ReactElement {
     const [showCounter, setShowCounter] = useState(true);
@@ -23,7 +24,10 @@ export default function Exercises(): ReactElement {
                         <Route path={`${url}/posts`}>
                             <PostList />
                         </Route>
-                        <Route path="/clock">
+                        <Route path={`${url}/form`}>
+                            <Form />
+                        </Route>
+                        <Route path={`${url}/clock`}>
                             <Clock />
                         </Route>
                         <Route path="/counter/functional">{showCounter && <FunctionalCounter startValue={4} />}</Route>

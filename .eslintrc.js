@@ -23,4 +23,8 @@ module.exports = {
             version: "detect",
         },
     },
+    rules: {
+        "no-debugger": "warn",
+        "no-unused-vars": ["warn"], // instead of default error
+    },
 };

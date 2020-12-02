@@ -34,6 +34,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
+    "no-debugger": "warn",
     "extends": [
       "react-app",
       "react-app/jest"
