@@ -1,18 +1,17 @@
-import React, { ReactElement, useEffect, useState } from 'react'
-import Book from '../../types/Book';
+import React, { ReactElement } from 'react'
+import Book from '../../types/BookBase';
 import LoadingSpinner from '../assets/LoadingSpinner';
 import StarIcon from '../assets/StarIcon';
 import AuthorList from '../AuthorList';
 import ImageRenderer from '../renderer/ImageRenderer';
-import bookApi from '../../shared/BookApi';
+import { useHistory, useParams } from 'react-router-dom';
+import { useBookApi } from '../../hooks/useBookApi';
+import axios from 'axios';
 
-interface Props {
-    selectedBook: string;
-    showList: () => void;
-}
-
-export default function BookDetails(props: Props): ReactElement {
-    const [book, setBook] = useState<Book>();
+export default function BookDetails(): ReactElement {
+    const { isbn } = useParams<{ isbn: string }>();
+    const history = useHistory();
+    const book = useBookApi<Book>("get", `books/${isbn}`)[0];
 
     /**
      * get ratings from Book API
@@ -28,15 +27,21 @@ export default function BookDetails(props: Props): ReactElement {
     };
 
     /**
+     * use JS history function to push history
+     */
+    const goToList = () => {
+        history.push("/bookmonkey/books");
+    };
+
+    /**
      * Delete current book from store
      */
-    const deleteBook = (): void => {
-        bookApi("DELETE", "books/" + props.selectedBook, props.showList);
-    }
-
-    useEffect(() => {
-        bookApi("GET", "books/" + props.selectedBook, setBook);
-    }, [props.selectedBook]);
+    const deleteBook = () => {
+        axios({
+            method: "delete",
+            url: `https://api3.angular-buch.com/books/${isbn}`,
+        }).then(goToList);
+    };
 
     /**
      * Guardian: Return if book is not available
@@ -82,7 +87,7 @@ export default function BookDetails(props: Props): ReactElement {
                     />
                 ) : null}
             </div>
-            <button onClick={props.showList} className="ui red button">
+            <button onClick={goToList} className="ui green button">
                 Back to List
             </button>
             <button onClick={deleteBook} className="ui red button">

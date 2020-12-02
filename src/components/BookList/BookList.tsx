@@ -1,28 +1,18 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import axios from "axios";
+import React, { ReactElement } from "react";
 import BookListItem from "../BookListItem";
-import Book from "../../types/Book";
+import Book from "../../types/BookBase";
 import LoadingSpinner from "../assets/LoadingSpinner";
 import bookApi from "../../shared/BookApi";
+import { useBookApi } from "../../hooks/useBookApi";
 
-interface Props {
-    clickedBook: (book: Book) => void;
-    showList: () => void;
-}
-
-export default function PostList(props: Props): ReactElement {
-    const BASE_URL = "https://api3.angular-buch.com/books";
-    const [books, setBooks] = useState<Book[]>();
-
+export default function BookList(): ReactElement {
+    const [books, setBooks] = useBookApi<Book[]>("get", "books");
+    
     const resetBookstore = (): void => {
-        bookApi("DELETE", "books", window.location.reload);
-    };
-
-    useEffect(() => {
-        axios.get(BASE_URL).then((response) => {
-            setBooks(response.data);
+        bookApi<string>("delete", "books", () => {
+            bookApi<Book[]>("get", "books", setBooks);
         });
-    }, []);
+    };
 
     if (!books) return <LoadingSpinner />;
 
@@ -41,7 +31,6 @@ export default function PostList(props: Props): ReactElement {
                     <BookListItem
                         book={book}
                         key={book.isbn}
-                        clickedBook={props.clickedBook}
                     />
                 ))
             )}

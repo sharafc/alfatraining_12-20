@@ -1,39 +1,35 @@
 import React, { ReactElement, useState } from "react";
 import BookList from "../BookList";
 import BookDetails from "../BookDetails";
-import Book from "../../types/Book";
-
-type ViewState = "list" | "detail";
+import { Switch, Route, Redirect, useRouteMatch } from "react-router-dom";
+import Layout from "../layouts/BookMonkeyLayout";
+import MonkeyHome from "./MonkeyHome";
+import BookForm from "../BookForm/BookForm";
 
 export default function BookMonkey(): ReactElement {
-    const [viewState, setViewState] = useState<ViewState>("list");
-    const [book, setBook] = useState<Book>();
-
-    const clickedBook = (currentBook: Book): void => {
-        setBook(book ? undefined : currentBook);
-        setViewState("detail");
-    };
-
-    const showList = (): void => {
-        setBook(undefined);
-        setViewState("list");
-    }
-
-    const selectBookView = () => {
-        if (viewState === "list") {
-            return <BookList clickedBook={clickedBook} showList={showList} />;
-        }
-        if (viewState === "detail" && book) {
-            return <BookDetails selectedBook={book.isbn} showList={showList} />;
-        }
-    };
-
+    const { url } = useRouteMatch();
+    
     return (
         <div className="ui container">
-            {/**
-             * defer logic of choosing correct template to its own function
-             */}
-            {selectBookView()}
+            <Layout>
+                <Switch>
+                    <Route path={`${url}/books/create`}>
+                        <BookForm />
+                    </Route>
+
+                    <Route path={`${url}/books/:isbn`}>
+                        <BookDetails />
+                    </Route>
+
+                    <Route path={`${url}/books`}>
+                        <BookList />
+                    </Route>
+
+                    <Route path={`${url}/monkeyhome`}>
+                        <MonkeyHome />
+                    </Route>
+                </Switch>
+            </Layout>
         </div>
     );
 }

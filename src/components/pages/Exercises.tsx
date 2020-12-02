@@ -5,12 +5,11 @@ import PostList from "../PostList";
 import PostDetails from "../PostDetails";
 import FunctionalCounter from "../FunctionalCounter";
 import Clock from "../Clock";
-import Layout from "../Layout";
+import Layout from "../layouts/Layout";
 import Form from "../Form";
 
 export default function Exercises(): ReactElement {
     const [showCounter, setShowCounter] = useState(true);
-
     const { url } = useRouteMatch();
 
     return (
